@@ -10,24 +10,24 @@ fn function02() -> io::Result<()> {
     Ok(())
 }
 
-fn function03() -> io::Result<()> {
+fn function03() {
     let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer)?;
-    let mut vector = Vec::new();
-    match buffer.trim().parse::<usize>() {
-        Ok(number) => (0..number).for_each(|_| {
-            let mut buffer = String::new();
-            io::stdin().read_line(&mut buffer).unwrap();
-            vector.push(buffer.trim().parse::<usize>().unwrap());
-        }),
-        Err(e) => println!("{}", e),
+    if let Ok(_) = io::stdin().read_line(&mut buffer) {
+        if let Ok(number) = buffer.trim().parse::<usize>() {
+            let vector = (0..number)
+                .filter_map(|_| {
+                    let mut buffer = String::new();
+                    io::stdin().read_line(&mut buffer).unwrap();
+                    buffer.trim().parse::<usize>().ok()
+                })
+                .collect::<Vec<_>>();
+            vector.iter().for_each(|number| println!("{}", number));
+        }
     }
-    vector.iter().for_each(|number| println!("{}", number));
-    Ok(())
 }
 
 fn main() -> io::Result<()> {
     // function02().unwrap();
-    function03().unwrap();
+    function03();
     Ok(())
 }
