@@ -19,14 +19,10 @@ pub fn function03() {
                     io::stdin()
                         .read_line(&mut buffer)
                         .ok()
-                        .map(|_| buffer.trim().parse::<usize>().ok())
+                        .and_then(|_| buffer.trim().parse::<usize>().ok())
                 })
                 .collect::<Vec<_>>();
-            vector.iter().for_each(|option| {
-                if let Some(number) = option {
-                    println!("{}", number);
-                }
-            });
+            vector.iter().for_each(|number| println!("{}", number));
         }
     }
 }
