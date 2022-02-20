@@ -1,3 +1,10 @@
+pub fn function01() {
+    let mut buffer = String::new();
+    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
+        print!("{}", buffer);
+    }
+}
+
 pub fn function02() {
     let mut buffer = String::new();
     if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
@@ -26,5 +33,5 @@ pub fn function03() {
 }
 
 fn main() {
-    function03()
+    function01()
 }
