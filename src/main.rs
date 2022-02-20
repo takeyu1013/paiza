@@ -1,3 +1,5 @@
+use std::io::BufRead;
+
 pub fn function01() {
     let mut buffer = String::new();
     if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
@@ -52,6 +54,15 @@ pub fn function04() {
     }
 }
 
+pub fn function05() {
+    if let Some(next) = std::io::stdin().lock().lines().next() {
+        if let Ok(line) = next {
+            let count = line.split_whitespace().count();
+            println!("{}", count);
+        }
+    }
+}
+
 fn main() {
-    function04()
+    function05()
 }
