@@ -63,6 +63,16 @@ pub fn function05() {
     }
 }
 
+pub fn function06() {
+    if let Some(next) = std::io::stdin().lock().lines().next() {
+        if let Ok(line) = next {
+            if let Ok(number) = line.trim().parse::<usize>() {
+                println!("{}, {}", number, line);
+            }
+        }
+    }
+}
+
 fn main() {
-    function05()
+    function06()
 }
