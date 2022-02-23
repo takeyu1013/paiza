@@ -64,10 +64,15 @@ pub fn function05() {
 }
 
 pub fn function06() {
-    if let Some(next) = std::io::stdin().lock().lines().next() {
-        if let Ok(line) = next {
-            if let Ok(number) = line.trim().parse::<usize>() {
-                println!("{}, {}", number, line);
+    let mut buffer = String::new();
+    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
+        if let Ok(number) = buffer.trim().parse::<usize>() {
+            let mut buffer = String::new();
+            if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
+                buffer
+                    .split_whitespace()
+                    .take(number)
+                    .for_each(|word| println!("{}", word))
             }
         }
     }
