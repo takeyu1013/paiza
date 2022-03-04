@@ -106,6 +106,8 @@ pub fn c_rank_std_in_out_boss() {
     }
 }
 
+pub fn c_rank_string_step1() {}
+
 fn main() {
     c_rank_std_in_out_boss()
 }
