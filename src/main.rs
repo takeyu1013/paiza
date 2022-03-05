@@ -106,8 +106,26 @@ pub fn c_rank_std_in_out_boss() {
     }
 }
 
-pub fn c_rank_string_step1() {}
+pub fn c_rank_string_step1() {
+    let mut buffer = String::new();
+    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
+        if let Ok(number) = buffer.trim().parse::<usize>() {
+            let lines = (0..number)
+                .filter_map(|_| {
+                    let mut buffer = String::new();
+                    std::io::stdin()
+                        .read_line(&mut buffer)
+                        .ok()
+                        .and_then(|_| Some(String::from(buffer.trim())))
+                })
+                .collect::<Vec<_>>();
+            lines.iter().for_each(|line| {
+                println!("{}", line);
+            });
+        }
+    }
+}
 
 fn main() {
-    c_rank_std_in_out_boss()
+    c_rank_string_step1();
 }
