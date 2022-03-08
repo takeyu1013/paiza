@@ -120,7 +120,7 @@ pub fn c_rank_string_step1() {
                 })
                 .collect::<Vec<_>>();
             lines.iter().for_each(|line| {
-                println!("{}", line);
+                println!("{}", line.chars().count());
             });
         }
     }
