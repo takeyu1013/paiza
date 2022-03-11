@@ -129,10 +129,10 @@ pub fn c_rank_string_step1() {
 pub fn c_rank_string_step2() {
     let mut buffer = String::new();
     if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Some(charactor) = buffer.chars().next() {
+        if let Some(character) = buffer.chars().next() {
             buffer = String::new();
             if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-                if buffer.contains(charactor) {
+                if buffer.contains(character) {
                     println!("YES");
                 } else {
                     println!("NO");
