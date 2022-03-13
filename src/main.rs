@@ -132,12 +132,14 @@ pub fn c_rank_string_step2() {
         if let Some(character) = buffer.chars().next() {
             buffer = String::new();
             if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-                let string = if buffer.contains(character) {
-                    "YES"
-                } else {
-                    "NO"
-                };
-                println!("{}", string);
+                println!(
+                    "{}",
+                    if buffer.contains(character) {
+                        "YES"
+                    } else {
+                        "NO"
+                    }
+                );
             }
         }
     }
