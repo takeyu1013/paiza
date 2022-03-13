@@ -145,6 +145,29 @@ pub fn c_rank_string_step2() {
     }
 }
 
+pub fn c_rank_string_step3() {
+    use std::io::{stdin, BufRead};
+    if let Some(next) = stdin().lock().lines().next() {
+        if let Ok(line) = next {
+            let numbers = line
+                .chars()
+                .filter_map(|character| character.to_digit(10))
+                .collect::<Vec<_>>();
+            if let Some(number1) = numbers.first() {
+                if let Some(number4) = numbers.get(3) {
+                    let first = number1 + number4;
+                    if let Some(number2) = numbers.get(1) {
+                        if let Some(number3) = numbers.get(2) {
+                            let second = number2 + number3;
+                            println!("{}{}", first, second);
+                        }
+                    }
+                }
+            };
+        }
+    }
+}
+
 fn main() {
-    c_rank_string_step2();
+    c_rank_string_step3();
 }
