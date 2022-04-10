@@ -171,6 +171,17 @@ pub fn c_rank_string_step3() {
     }
 }
 
+pub fn c_rank_string_step4() {
+    use std::io::{stdin, BufRead};
+    if let Some(next) = stdin().lock().lines().next() {
+        if let Ok(line) = next {
+            if let Ok(number) = line.trim().parse::<usize>() {
+                println!("{:03}", number);
+            }
+        }
+    }
+}
+
 fn main() {
-    c_rank_std_in_out_step5();
+    c_rank_string_step4();
 }
