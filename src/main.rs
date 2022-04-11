@@ -177,7 +177,6 @@ pub fn c_rank_string_step4() {
         next.ok().map(|line| {
             line.trim().parse::<usize>().ok().map(|number| {
                 println!("{:03}", number);
-                number
             });
         });
     });
