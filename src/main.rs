@@ -173,13 +173,14 @@ pub fn c_rank_string_step3() {
 
 pub fn c_rank_string_step4() {
     use std::io::BufRead;
-    if let Some(next) = std::io::stdin().lock().lines().next() {
-        if let Ok(line) = next {
-            if let Ok(number) = line.trim().parse::<usize>() {
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
+            line.trim().parse::<usize>().ok().map(|number| {
                 println!("{:03}", number);
-            }
-        }
-    }
+                number
+            });
+        });
+    });
 }
 
 fn main() {
