@@ -104,7 +104,7 @@ pub fn c_rank_std_in_out_boss() {
                 .collect::<Vec<_>>();
             tuples
                 .iter()
-                .for_each(|tuple| println!("{}, {}", tuple.0, tuple.1));
+                .for_each(|tuple| println!("{} {}", tuple.0, tuple.1));
         }
     }
 }
