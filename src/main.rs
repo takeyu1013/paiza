@@ -81,48 +81,30 @@ pub fn function06() {
 }
 
 pub fn c_rank_std_in_out_boss() {
-    use std::io::BufRead;
-    let number = std::io::stdin().lock().lines().next().map(|result| {
-        result
-            .ok()
-            .map(|string| string.trim().parse::<usize>().ok().map(|number| number))
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        let lines = (0..number)
+            .map(|_| {
+                let mut buffer = String::new();
+                std::io::stdin().read_line(&mut buffer).ok();
+                buffer
+            })
+            .collect::<Vec<_>>();
+        lines.iter().for_each(|line| {
+            line.split_whitespace()
+                .next()
+                .map(|name| print!("{} ", name));
+            line.split_whitespace().nth(1).map(|string| {
+                string
+                    .trim()
+                    .parse::<usize>()
+                    .ok()
+                    .map(|number| print!("{}", number + 1))
+            });
+            println!();
+        });
     });
-    let mut foo: Result<String, std::io::Error>;
-    if let Some(result) = std::io::stdin().lock().lines().next() {
-        foo = result;
-    }
-    // let mut buffer = String::new();
-    // if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-    //     if let Ok(number) = buffer.trim().parse::<usize>() {
-    //         let lines = (0..number)
-    //             .filter_map(|_| {
-    //                 let mut buffer = String::new();
-    //                 std::io::stdin()
-    //                     .read_line(&mut buffer)
-    //                     .ok()
-    //                     .and_then(|_| Some(String::from(buffer.trim())))
-    //             })
-    //             .collect::<Vec<_>>();
-    //         let tuples = lines
-    //             .iter()
-    //             .filter_map(|line| {
-    //                 Some((
-    //                     line.split_whitespace().next().unwrap(),
-    //                     line.split_whitespace()
-    //                         .nth(1)
-    //                         .unwrap()
-    //                         .trim()
-    //                         .parse::<usize>()
-    //                         .unwrap()
-    //                         + 1,
-    //                 ))
-    //             })
-    //             .collect::<Vec<_>>();
-    //         tuples
-    //             .iter()
-    //             .for_each(|tuple| println!("{} {}", tuple.0, tuple.1));
-    //     }
-    // }
 }
 
 pub fn c_rank_string_step1() {
