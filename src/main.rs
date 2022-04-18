@@ -109,64 +109,56 @@ pub fn c_rank_std_in_out_boss() {
 
 pub fn c_rank_string_step1() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Ok(number) = buffer.trim().parse::<usize>() {
-            let lines = (0..number)
-                .filter_map(|_| {
-                    let mut buffer = String::new();
-                    std::io::stdin()
-                        .read_line(&mut buffer)
-                        .ok()
-                        .and_then(|_| Some(String::from(buffer.trim())))
-                })
-                .collect::<Vec<_>>();
-            lines.iter().for_each(|line| {
-                println!("{}", line.chars().count());
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        (0..number)
+            .map(|_| {
+                let mut buffer = String::new();
+                std::io::stdin().read_line(&mut buffer).ok();
+                buffer
+            })
+            .collect::<Vec<_>>()
+            .iter()
+            .for_each(|line| {
+                println!("{}", line.trim().chars().count());
             });
-        }
-    }
+    });
 }
 
 pub fn c_rank_string_step2() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Some(character) = buffer.chars().next() {
-            buffer = String::new();
-            if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-                println!(
-                    "{}",
-                    if buffer.contains(character) {
-                        "YES"
-                    } else {
-                        "NO"
-                    }
-                );
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.chars().next().map(|character| {
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok();
+        println!(
+            "{}",
+            if buffer.contains(character) {
+                "YES"
+            } else {
+                "NO"
             }
-        }
-    }
+        );
+    });
 }
 
 pub fn c_rank_string_step3() {
-    use std::io::{stdin, BufRead};
-    if let Some(next) = stdin().lock().lines().next() {
-        if let Ok(line) = next {
+    use std::io::BufRead;
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
             let numbers = line
                 .chars()
                 .filter_map(|character| character.to_digit(10))
                 .collect::<Vec<_>>();
-            if let Some(number1) = numbers.first() {
-                if let Some(number4) = numbers.get(3) {
-                    let first = number1 + number4;
-                    if let Some(number2) = numbers.get(1) {
-                        if let Some(number3) = numbers.get(2) {
-                            let second = number2 + number3;
-                            println!("{}{}", first, second);
-                        }
-                    }
-                }
-            };
-        }
-    }
+            numbers.get(0).map(|first| {
+                numbers.get(3).map(|second| print!("{}", first + second));
+            });
+            numbers.get(1).map(|first| {
+                numbers.get(2).map(|second| print!("{}", first + second));
+            });
+            println!();
+        });
+    });
 }
 
 pub fn c_rank_string_step4() {
@@ -180,6 +172,34 @@ pub fn c_rank_string_step4() {
     });
 }
 
+pub fn c_rank_string_step5() {
+    use std::io::BufRead;
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
+            line.split(":").take(2).for_each(|string| {
+                string
+                    .parse::<usize>()
+                    .ok()
+                    .map(|number| println!("{}", number));
+            });
+        });
+    });
+}
+
+pub fn c_rank_string_step6() {
+    use std::io::BufRead;
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
+            line.split(":").take(2).for_each(|string| {
+                string
+                    .parse::<usize>()
+                    .ok()
+                    .map(|number| println!("{}", number));
+            });
+        });
+    });
+}
+
 fn main() {
-    c_rank_std_in_out_boss();
+    c_rank_string_step6();
 }
