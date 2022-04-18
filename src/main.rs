@@ -84,26 +84,26 @@ pub fn c_rank_std_in_out_boss() {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).ok();
     buffer.trim().parse::<usize>().ok().map(|number| {
-        let lines = (0..number)
+        (0..number)
             .map(|_| {
                 let mut buffer = String::new();
                 std::io::stdin().read_line(&mut buffer).ok();
                 buffer
             })
-            .collect::<Vec<_>>();
-        lines.iter().for_each(|line| {
-            line.split_whitespace()
-                .next()
-                .map(|name| print!("{} ", name));
-            line.split_whitespace().nth(1).map(|string| {
-                string
-                    .trim()
-                    .parse::<usize>()
-                    .ok()
-                    .map(|number| print!("{}", number + 1))
+            .collect::<Vec<_>>()
+            .iter()
+            .for_each(|line| {
+                let vector = line.split_whitespace().take(2).collect::<Vec<_>>();
+                vector.get(0).map(|name| print!("{}", name));
+                vector.get(1).map(|string| {
+                    string
+                        .trim()
+                        .parse::<usize>()
+                        .ok()
+                        .map(|number| print!(" {}", number + 1));
+                });
+                println!();
             });
-            println!();
-        });
     });
 }
 
