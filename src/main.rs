@@ -190,11 +190,22 @@ pub fn c_rank_string_step6() {
     use std::io::BufRead;
     std::io::stdin().lock().lines().next().map(|next| {
         next.ok().map(|line| {
-            line.split(":").take(2).for_each(|string| {
-                string
-                    .parse::<usize>()
-                    .ok()
-                    .map(|number| println!("{}", number));
+            let numbers = line
+                .split(":")
+                .take(2)
+                .flat_map(|string| string.parse::<usize>().ok())
+                .collect::<Vec<_>>();
+            numbers.get(1).map(|miniute| {
+                let new_miniute = miniute + 30;
+                if &new_miniute > &59 {
+                    numbers
+                        .get(0)
+                        .map(|hour| println!("{:02}:{:02}", hour + 1, new_miniute - 60));
+                } else {
+                    numbers
+                        .get(0)
+                        .map(|hour| println!("{:02}:{:02}", hour, new_miniute));
+                }
             });
         });
     });
