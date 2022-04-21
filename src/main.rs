@@ -195,22 +195,45 @@ pub fn c_rank_string_step6() {
                 .take(2)
                 .flat_map(|string| string.parse::<usize>().ok())
                 .collect::<Vec<_>>();
-            numbers.get(1).map(|miniute| {
-                let new_miniute = miniute + 30;
-                if &new_miniute > &59 {
+            numbers.get(1).map(|minutes| {
+                let new_minutes = minutes + 30;
+                if &new_minutes > &59 {
                     numbers
                         .get(0)
-                        .map(|hour| println!("{:02}:{:02}", hour + 1, new_miniute - 60));
+                        .map(|hour| println!("{:02}:{:02}", hour + 1, new_minutes - 60));
                 } else {
                     numbers
                         .get(0)
-                        .map(|hour| println!("{:02}:{:02}", hour, new_miniute));
+                        .map(|hour| println!("{:02}:{:02}", hour, new_minutes));
                 }
             });
         });
     });
 }
 
+pub fn c_rank_string_step6_chrono() {
+    use chrono::prelude::Local;
+    use chrono::Duration;
+    use chrono::Timelike;
+    use std::io::BufRead;
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
+            let numbers = line
+                .split(":")
+                .take(2)
+                .flat_map(|string| string.parse::<u32>().ok())
+                .collect::<Vec<_>>();
+            numbers.get(0).map(|hour| {
+                numbers.get(1).map(|minutes| {
+                    let time = Local::today().and_hms(hour.clone(), minutes.clone(), 0)
+                        + Duration::minutes(30);
+                    println!("{:02}:{:02}", time.hour(), time.minute());
+                });
+            });
+        });
+    });
+}
+
 fn main() {
-    c_rank_string_step6();
+    c_rank_string_step6_chrono();
 }
