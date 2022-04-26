@@ -280,6 +280,18 @@ pub fn c_rank_string_boss() {
     });
 }
 
+pub fn c_rank_for_step1() {
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok();
+        buffer.split_whitespace().take(number).for_each(|string| {
+            println!("{}", string);
+        });
+    });
+}
+
 fn main() {
-    c_rank_string_boss();
+    c_rank_for_step1();
 }
