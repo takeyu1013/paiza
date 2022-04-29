@@ -298,6 +298,30 @@ pub fn c_rank_for_step1() {
     });
 }
 
+pub fn c_rank_for_step2() {
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        println!(
+            "{}",
+            if (0..number)
+                .filter_map(|_| {
+                    let mut buffer = String::new();
+                    std::io::stdin().read_line(&mut buffer).ok();
+                    buffer.trim().parse::<usize>().ok()
+                })
+                .collect::<Vec<_>>()
+                .iter()
+                .any(|&number| number == 7)
+            {
+                "YES"
+            } else {
+                "NO"
+            }
+        );
+    });
+}
+
 fn main() {
-    c_rank_for_step1();
+    c_rank_for_step2();
 }
