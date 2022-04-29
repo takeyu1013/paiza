@@ -286,9 +286,15 @@ pub fn c_rank_for_step1() {
     buffer.trim().parse::<usize>().ok().map(|number| {
         let mut buffer = String::new();
         std::io::stdin().read_line(&mut buffer).ok();
-        buffer.split_whitespace().take(number).for_each(|string| {
-            println!("{}", string);
-        });
+        println!(
+            "{}",
+            buffer
+                .split_whitespace()
+                .take(number)
+                .filter_map(|string| string.parse::<usize>().ok())
+                .filter(|number| number % 3 == 0)
+                .count()
+        );
     });
 }
 
