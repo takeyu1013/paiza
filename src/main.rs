@@ -322,6 +322,27 @@ pub fn c_rank_for_step2() {
     });
 }
 
+fn c_rank_for_step3() {
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        let numbers = (0..number)
+            .filter_map(|_| {
+                let mut buffer = String::new();
+                std::io::stdin().read_line(&mut buffer).ok();
+                buffer.trim().parse::<usize>().ok()
+            })
+            .collect::<Vec<_>>();
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok();
+        buffer
+            .trim()
+            .parse::<usize>()
+            .ok()
+            .map(|price| println!("{}", numbers.iter().any(|&number| number == price)));
+    });
+}
+
 fn main() {
-    c_rank_for_step2();
+    c_rank_for_step3();
 }
