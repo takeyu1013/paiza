@@ -335,11 +335,12 @@ fn c_rank_for_step3() {
             .collect::<Vec<_>>();
         let mut buffer = String::new();
         std::io::stdin().read_line(&mut buffer).ok();
-        buffer
-            .trim()
-            .parse::<usize>()
-            .ok()
-            .map(|price| println!("{}", numbers.iter().any(|&number| number == price)));
+        buffer.trim().parse::<usize>().ok().map(|price| {
+            numbers
+                .iter()
+                .position(|&number| number == price)
+                .map(|position| println!("{}", position + 1))
+        });
     });
 }
 
