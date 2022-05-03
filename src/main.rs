@@ -322,7 +322,7 @@ pub fn c_rank_for_step2() {
     });
 }
 
-fn c_rank_for_step3() {
+pub fn c_rank_for_step3() {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).ok();
     buffer.trim().parse::<usize>().ok().map(|number| {
@@ -344,6 +344,16 @@ fn c_rank_for_step3() {
     });
 }
 
+pub fn c_rank_for_step4() {
+    let mut buffer = String::new();
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer
+        .trim()
+        .parse::<usize>()
+        .ok()
+        .map(|number| println!("{}", number));
+}
+
 fn main() {
-    c_rank_for_step3();
+    c_rank_for_step4();
 }
