@@ -347,11 +347,23 @@ pub fn c_rank_for_step3() {
 pub fn c_rank_for_step4() {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).ok();
-    buffer
-        .trim()
-        .parse::<usize>()
-        .ok()
-        .map(|number| println!("{}", number));
+    buffer.trim().parse::<usize>().ok().map(|number| {
+        (0..number).for_each(|_| {
+            let mut buffer = String::new();
+            std::io::stdin().read_line(&mut buffer).ok();
+            buffer
+                .chars()
+                .next()
+                .map(|character| println!("{}", character));
+        });
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok();
+        buffer
+            .trim()
+            .parse::<usize>()
+            .ok()
+            .map(|number| println!("{}", number));
+    });
 }
 
 fn main() {
