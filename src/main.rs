@@ -348,23 +348,36 @@ pub fn c_rank_for_step4() {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).ok();
     buffer.trim().parse::<usize>().ok().map(|number| {
-        (0..number).for_each(|_| {
-            let mut buffer = String::new();
-            std::io::stdin().read_line(&mut buffer).ok();
-            buffer
-                .chars()
-                .next()
-                .map(|character| println!("{}", character));
-        });
+        let characters = (0..number)
+            .filter_map(|_| {
+                let mut buffer = String::new();
+                std::io::stdin().read_line(&mut buffer).ok();
+                buffer.chars().next()
+            })
+            .collect::<Vec<_>>();
         let mut buffer = String::new();
         std::io::stdin().read_line(&mut buffer).ok();
         buffer.trim().parse::<usize>().ok().map(|number| {
-            println!("{}", number);
-            (0..number).for_each(|_| {
-                let mut buffer = String::new();
-                std::io::stdin().read_line(&mut buffer).ok();
-                println!("{}", buffer.trim());
-            });
+            (0..number)
+                .map(|_| {
+                    let mut buffer = String::new();
+                    std::io::stdin().read_line(&mut buffer).ok();
+                    buffer
+                })
+                .collect::<Vec<_>>()
+                .iter()
+                .for_each(|string| {
+                    characters.iter().for_each(|&character| {
+                        println!(
+                            "{}",
+                            if string.contains(character) {
+                                "YES"
+                            } else {
+                                "NO"
+                            }
+                        )
+                    })
+                })
         });
     });
 }
