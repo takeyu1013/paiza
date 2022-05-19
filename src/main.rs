@@ -382,6 +382,31 @@ pub fn c_rank_for_step4() {
     });
 }
 
+pub fn d002() {
+    use std::io::BufRead;
+    std::io::stdin().lock().lines().next().map(|next| {
+        next.ok().map(|line| {
+            let numbers = line
+                .split_whitespace()
+                .take(2)
+                .filter_map(|string| string.trim().parse::<usize>().ok())
+                .collect::<Vec<_>>();
+            if let (Some(a), Some(b)) = (numbers.get(0), numbers.get(1)) {
+                println!(
+                    "{}",
+                    if a > b {
+                        a.to_string()
+                    } else if a < b {
+                        b.to_string()
+                    } else {
+                        String::from("eq")
+                    }
+                );
+            }
+        });
+    });
+}
+
 fn main() {
-    c_rank_for_step4();
+    d002()
 }
