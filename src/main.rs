@@ -57,11 +57,12 @@ pub fn function04() {
 
 pub fn function05() {
     use std::io::{stdin, BufRead};
-    if let Some(next) = stdin().lock().lines().next() {
-        if let Ok(line) = next {
-            let count = line.split_whitespace().count();
-            println!("{}", count);
-        }
+    let Some(next) = stdin().lock().lines().next() else {
+        return
+    };
+    if let Ok(line) = next {
+        let count = line.split_whitespace().count();
+        println!("{}", count);
     }
 }
 
@@ -408,5 +409,5 @@ pub fn d002() {
 }
 
 fn main() {
-    d002()
+    function05()
 }
