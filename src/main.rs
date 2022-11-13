@@ -9,12 +9,14 @@ const PAIZA: &str = "paiza";
 
 pub fn c_rank_std_in_out_step5() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Ok(number) = buffer.trim().parse::<usize>() {
-            (0..number - 1).for_each(|_| print!("{} ", PAIZA));
-            println!("{}", PAIZA);
-        }
-    }
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
+        return;
+    };
+    let Ok(number) = buffer.trim().parse::<usize>() else {
+        return;
+    };
+    (0..number - 1).for_each(|_| print!("{} ", PAIZA));
+    println!("{}", PAIZA);
 }
 
 pub fn function03() {
@@ -409,5 +411,5 @@ pub fn d002() {
 }
 
 fn main() {
-    function05()
+    c_rank_std_in_out_step5()
 }
