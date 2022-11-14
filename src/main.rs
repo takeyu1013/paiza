@@ -1,4 +1,4 @@
-pub fn function01() {
+pub fn c_rank_std_in_out_step1() {
     let mut buffer = String::new();
     if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
         print!("{}", buffer);
@@ -7,7 +7,7 @@ pub fn function01() {
 
 const PAIZA: &str = "paiza";
 
-pub fn c_rank_std_in_out_step5() {
+pub fn c_rank_std_in_out_step2() {
     let mut buffer = String::new();
     let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
         return;
@@ -19,22 +19,18 @@ pub fn c_rank_std_in_out_step5() {
     println!("{}", PAIZA);
 }
 
-pub fn function03() {
+pub fn c_rank_std_in_out_step3() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Ok(number) = buffer.trim().parse::<usize>() {
-            let vector = (0..number)
-                .filter_map(|_| {
-                    let mut buffer = String::new();
-                    std::io::stdin()
-                        .read_line(&mut buffer)
-                        .ok()
-                        .and_then(|_| buffer.trim().parse::<usize>().ok())
-                })
-                .collect::<Vec<_>>();
-            vector.iter().for_each(|number| println!("{}", number));
-        }
-    }
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else { 
+        return;
+    };
+    let Ok(number) = buffer.trim().parse::<usize>() else {
+        return;
+    };
+    (0..number).filter_map(|_| {
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok().and_then(|_| buffer.trim().parse::<usize>().ok())
+    }).collect::<Vec<_>>().iter().for_each(|number| println!("{}", number));
 }
 
 pub fn function04() {
@@ -411,5 +407,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step5()
+    c_rank_std_in_out_step3()
 }
