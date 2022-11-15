@@ -1,8 +1,9 @@
 pub fn c_rank_std_in_out_step1() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        print!("{}", buffer);
-    }
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
+        return
+    };
+    print!("{}", buffer);
 }
 
 const PAIZA: &str = "paiza";
@@ -10,10 +11,10 @@ const PAIZA: &str = "paiza";
 pub fn c_rank_std_in_out_step2() {
     let mut buffer = String::new();
     let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return;
+        return
     };
     let Ok(number) = buffer.trim().parse::<usize>() else {
-        return;
+        return
     };
     (0..number - 1).for_each(|_| print!("{} ", PAIZA));
     println!("{}", PAIZA);
@@ -22,10 +23,10 @@ pub fn c_rank_std_in_out_step2() {
 pub fn c_rank_std_in_out_step3() {
     let mut buffer = String::new();
     let Ok(_) = std::io::stdin().read_line(&mut buffer) else { 
-        return;
+        return
     };
     let Ok(number) = buffer.trim().parse::<usize>() else {
-        return;
+        return
     };
     (0..number).filter_map(|_| {
         let mut buffer = String::new();
@@ -33,24 +34,22 @@ pub fn c_rank_std_in_out_step3() {
     }).collect::<Vec<_>>().iter().for_each(|number| println!("{}", number));
 }
 
-pub fn function04() {
+pub fn c_rank_std_in_out_step4() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Ok(number) = buffer.trim().parse::<usize>() {
-            let vector = (0..number)
-                .filter_map(|_| {
-                    let mut buffer = String::new();
-                    std::io::stdin()
-                        .read_line(&mut buffer)
-                        .ok()
-                        .and_then(|_| buffer.trim().parse::<usize>().ok())
-                })
-                .collect::<Vec<_>>();
-            if let Some(max) = vector.iter().max() {
-                println!("{}", max);
-            }
-        }
-    }
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
+        return
+    };
+    let Ok(number) = buffer.trim().parse::<usize>() else {
+        return
+    };
+    let vector = (0..number).filter_map(|_| {
+        let mut buffer = String::new();
+        std::io::stdin().read_line(&mut buffer).ok().and_then(|_| buffer.trim().parse::<usize>().ok())
+    }).collect::<Vec<_>>();
+    let Some(max) = vector.iter().max() else {
+        return
+    };
+    println!("{}", max);
 }
 
 pub fn function05() {
@@ -407,5 +406,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step3()
+    c_rank_std_in_out_step4()
 }
