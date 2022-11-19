@@ -52,15 +52,15 @@ pub fn c_rank_std_in_out_step4() {
     println!("{}", max);
 }
 
-pub fn function05() {
+pub fn c_rank_std_in_out_step5() {
     use std::io::{stdin, BufRead};
     let Some(next) = stdin().lock().lines().next() else {
         return
     };
-    if let Ok(line) = next {
-        let count = line.split_whitespace().count();
-        println!("{}", count);
-    }
+    let Ok(line) = next else {
+        return
+    };
+    println!("{}", line.split_whitespace().count());
 }
 
 pub fn function06() {
@@ -406,5 +406,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step4()
+    c_rank_std_in_out_step5()
 }
