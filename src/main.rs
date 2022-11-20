@@ -63,19 +63,19 @@ pub fn c_rank_std_in_out_step5() {
     println!("{}", line.split_whitespace().count());
 }
 
-pub fn function06() {
+pub fn c_rank_std_in_out_step6() {
     let mut buffer = String::new();
-    if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-        if let Ok(number) = buffer.trim().parse::<usize>() {
-            let mut buffer = String::new();
-            if let Ok(_) = std::io::stdin().read_line(&mut buffer) {
-                buffer
-                    .split_whitespace()
-                    .take(number)
-                    .for_each(|word| println!("{}", word))
-            }
-        }
-    }
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
+        return
+    };
+    let Ok(number) = buffer.trim().parse::<usize>() else {
+        return
+    };
+    buffer = String::new();
+    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
+        return
+    };
+    buffer.split_whitespace().take(number).for_each(|word| println!("{}", word));
 }
 
 pub fn c_rank_std_in_out_boss() {
@@ -406,5 +406,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step5()
+    c_rank_std_in_out_step6()
 }
