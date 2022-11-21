@@ -1,8 +1,6 @@
 pub fn c_rank_std_in_out_step1() {
     let mut buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return
-    };
+    std::io::stdin().read_line(&mut buffer).ok();
     print!("{}", buffer);
 }
 
@@ -10,9 +8,7 @@ const PAIZA: &str = "paiza";
 
 pub fn c_rank_std_in_out_step2() {
     let mut buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return
-    };
+    std::io::stdin().read_line(&mut buffer).ok();
     let Ok(number) = buffer.trim().parse::<usize>() else {
         return
     };
@@ -22,30 +18,38 @@ pub fn c_rank_std_in_out_step2() {
 
 pub fn c_rank_std_in_out_step3() {
     let mut buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else { 
-        return
-    };
+    std::io::stdin().read_line(&mut buffer).ok();
     let Ok(number) = buffer.trim().parse::<usize>() else {
         return
     };
-    (0..number).filter_map(|_| {
-        let mut buffer = String::new();
-        std::io::stdin().read_line(&mut buffer).ok().and_then(|_| buffer.trim().parse::<usize>().ok())
-    }).collect::<Vec<_>>().iter().for_each(|number| println!("{}", number));
+    (0..number)
+        .filter_map(|_| {
+            let mut buffer = String::new();
+            std::io::stdin()
+                .read_line(&mut buffer)
+                .ok()
+                .and_then(|_| buffer.trim().parse::<usize>().ok())
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .for_each(|number| println!("{}", number));
 }
 
 pub fn c_rank_std_in_out_step4() {
     let mut buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return
-    };
+    std::io::stdin().read_line(&mut buffer).ok();
     let Ok(number) = buffer.trim().parse::<usize>() else {
         return
     };
-    let vector = (0..number).filter_map(|_| {
-        let mut buffer = String::new();
-        std::io::stdin().read_line(&mut buffer).ok().and_then(|_| buffer.trim().parse::<usize>().ok())
-    }).collect::<Vec<_>>();
+    let vector = (0..number)
+        .filter_map(|_| {
+            let mut buffer = String::new();
+            std::io::stdin()
+                .read_line(&mut buffer)
+                .ok()
+                .and_then(|_| buffer.trim().parse::<usize>().ok())
+        })
+        .collect::<Vec<_>>();
     let Some(max) = vector.iter().max() else {
         return
     };
@@ -65,44 +69,44 @@ pub fn c_rank_std_in_out_step5() {
 
 pub fn c_rank_std_in_out_step6() {
     let mut buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return
-    };
+    std::io::stdin().read_line(&mut buffer).ok();
     let Ok(number) = buffer.trim().parse::<usize>() else {
         return
     };
     buffer = String::new();
-    let Ok(_) = std::io::stdin().read_line(&mut buffer) else {
-        return
-    };
-    buffer.split_whitespace().take(number).for_each(|word| println!("{}", word));
+    std::io::stdin().read_line(&mut buffer).ok();
+    buffer
+        .split_whitespace()
+        .take(number)
+        .for_each(|word| println!("{}", word));
 }
 
 pub fn c_rank_std_in_out_boss() {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).ok();
-    buffer.trim().parse::<usize>().ok().map(|number| {
-        (0..number)
-            .map(|_| {
-                let mut buffer = String::new();
-                std::io::stdin().read_line(&mut buffer).ok();
-                buffer
-            })
-            .collect::<Vec<_>>()
-            .iter()
-            .for_each(|line| {
-                let vector = line.split_whitespace().take(2).collect::<Vec<_>>();
-                vector.get(0).map(|name| print!("{}", name));
-                vector.get(1).map(|string| {
-                    string
-                        .trim()
-                        .parse::<usize>()
-                        .ok()
-                        .map(|number| print!(" {}", number + 1));
-                });
-                println!();
+    let Ok(number) = buffer.trim().parse::<usize>() else {
+        return
+    };
+    (0..number)
+        .map(|_| {
+            let mut buffer = String::new();
+            std::io::stdin().read_line(&mut buffer).ok();
+            buffer
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .for_each(|line| {
+            let vector = line.split_whitespace().take(2).collect::<Vec<_>>();
+            vector.get(0).map(|name| print!("{}", name));
+            vector.get(1).map(|string| {
+                string
+                    .trim()
+                    .parse::<usize>()
+                    .ok()
+                    .map(|number| print!(" {}", number + 1));
             });
-    });
+            println!();
+        })
 }
 
 pub fn c_rank_string_step1() {
@@ -406,5 +410,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step6()
+    c_rank_std_in_out_boss()
 }
