@@ -1,7 +1,12 @@
 pub fn c_rank_std_in_out_step1() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    print!("{}", buffer);
+    use std::io::{stdin, BufRead};
+    let Some(next) = stdin().lock().lines().next() else {
+        return
+    };
+    let Ok(line) = next else {
+        return
+    };
+    println!("{}", line);
 }
 
 const PAIZA: &str = "paiza";
@@ -41,7 +46,7 @@ pub fn c_rank_std_in_out_step4() {
     let Ok(number) = buffer.trim().parse::<usize>() else {
         return
     };
-    let vector = (0..number)
+    (0..number)
         .filter_map(|_| {
             let mut buffer = String::new();
             std::io::stdin()
@@ -49,11 +54,10 @@ pub fn c_rank_std_in_out_step4() {
                 .ok()
                 .and_then(|_| buffer.trim().parse::<usize>().ok())
         })
-        .collect::<Vec<_>>();
-    let Some(max) = vector.iter().max() else {
-        return
-    };
-    println!("{}", max);
+        .collect::<Vec<_>>()
+        .iter()
+        .max()
+        .map(|max| println!("{}", max));
 }
 
 pub fn c_rank_std_in_out_step5() {
@@ -410,5 +414,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_boss()
+    c_rank_std_in_out_step1()
 }
