@@ -1,39 +1,37 @@
 pub fn c_rank_std_in_out_step1() {
     use std::io::{stdin, BufRead};
-    let Some(next) = stdin().lock().lines().next() else {
-        return
-    };
-    let Ok(line) = next else {
-        return
-    };
-    println!("{}", line);
+    stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .map(|line| println!("{}", line));
 }
 
 const PAIZA: &str = "paiza";
 
 pub fn c_rank_std_in_out_step2() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    let Ok(number) = buffer.trim().parse::<usize>() else {
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
         return
     };
-    (0..number - 1).for_each(|_| print!("{} ", PAIZA));
-    println!("{}", PAIZA);
+    (0..number).for_each(|_| print!("{} ", PAIZA));
+    println!();
 }
 
 pub fn c_rank_std_in_out_step3() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    let Ok(number) = buffer.trim().parse::<usize>() else {
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
         return
     };
     (0..number)
         .filter_map(|_| {
-            let mut buffer = String::new();
-            std::io::stdin()
-                .read_line(&mut buffer)
-                .ok()
-                .and_then(|_| buffer.trim().parse::<usize>().ok())
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .and_then(|line| line.trim().parse::<usize>().ok())
         })
         .collect::<Vec<_>>()
         .iter()
@@ -41,18 +39,18 @@ pub fn c_rank_std_in_out_step3() {
 }
 
 pub fn c_rank_std_in_out_step4() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    let Ok(number) = buffer.trim().parse::<usize>() else {
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
         return
     };
     (0..number)
         .filter_map(|_| {
-            let mut buffer = String::new();
-            std::io::stdin()
-                .read_line(&mut buffer)
-                .ok()
-                .and_then(|_| buffer.trim().parse::<usize>().ok())
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .and_then(|line| line.trim().parse::<usize>().ok())
         })
         .collect::<Vec<_>>()
         .iter()
@@ -414,5 +412,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step1()
+    c_rank_std_in_out_step4()
 }
