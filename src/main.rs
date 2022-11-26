@@ -60,41 +60,32 @@ pub fn c_rank_std_in_out_step4() {
 
 pub fn c_rank_std_in_out_step5() {
     use std::io::{stdin, BufRead};
-    let Some(next) = stdin().lock().lines().next() else {
-        return
-    };
-    let Ok(line) = next else {
+    let Some(line) = stdin().lock().lines().next().and_then(|next| next.ok()) else {
         return
     };
     println!("{}", line.split_whitespace().count());
 }
 
 pub fn c_rank_std_in_out_step6() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    let Ok(number) = buffer.trim().parse::<usize>() else {
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
         return
     };
-    buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    buffer
-        .split_whitespace()
+    let Some(line) = stdin().lock().lines().next().and_then(|next| next.ok()) else {
+        return
+    };
+    line.split_whitespace()
         .take(number)
         .for_each(|word| println!("{}", word));
 }
 
 pub fn c_rank_std_in_out_boss() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    let Ok(number) = buffer.trim().parse::<usize>() else {
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
         return
     };
     (0..number)
-        .map(|_| {
-            let mut buffer = String::new();
-            std::io::stdin().read_line(&mut buffer).ok();
-            buffer
-        })
+        .filter_map(|_| stdin().lock().lines().next().and_then(|next| next.ok()))
         .collect::<Vec<_>>()
         .iter()
         .for_each(|line| {
@@ -108,7 +99,7 @@ pub fn c_rank_std_in_out_boss() {
                     .map(|number| print!(" {}", number + 1));
             });
             println!();
-        })
+        });
 }
 
 pub fn c_rank_string_step1() {
@@ -412,5 +403,5 @@ pub fn d002() {
 }
 
 fn main() {
-    c_rank_std_in_out_step4()
+    c_rank_std_in_out_step6()
 }
