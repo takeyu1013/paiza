@@ -402,6 +402,25 @@ pub fn d002() {
     });
 }
 
+pub fn c_rank_sort_step1() {
+    use itertools::Itertools;
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
+        return
+    };
+    (0..number)
+        .filter_map(|_| {
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .and_then(|line| line.trim().parse::<usize>().ok())
+        })
+        .sorted()
+        .for_each(|number| println!("{}", number));
+}
+
 fn main() {
-    c_rank_std_in_out_step6()
+    c_rank_sort_step1()
 }
