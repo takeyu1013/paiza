@@ -421,6 +421,82 @@ pub fn c_rank_sort_step1() {
         .for_each(|number| println!("{}", number));
 }
 
+pub fn c_rank_sort_step2() {
+    use itertools::Itertools;
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
+        return
+    };
+    (0..number)
+        .filter_map(|_| {
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .and_then(|line| line.trim().parse::<usize>().ok())
+        })
+        .sorted()
+        .rev()
+        .for_each(|number| println!("{}", number));
+}
+
+pub fn c_rank_sort_step3() {
+    use itertools::Itertools;
+    use std::cmp::Ordering;
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
+        return
+    };
+    (0..number)
+        .filter_map(|_| {
+            let Some(numbers) = stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .map(|line| {
+                    line.trim()
+                        .split_whitespace()
+                        .take(2)
+                        .filter_map(|string| string.parse::<usize>().ok())
+                        .collect::<Vec<_>>()
+                }) else {
+                    return None
+                };
+            if numbers.len() != 2 {
+                return None;
+            };
+            Some(numbers)
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .sorted_by(|a, b| {
+            let Some(c) = a.get(0) else {
+                return Ordering::Equal
+            };
+            let Some(d) = b.get(0) else {
+                return Ordering::Equal
+            };
+            if c != d {
+                Ord::cmp(c, d)
+            } else {
+                let Some(c) = a.get(1) else {
+                    return Ordering::Equal
+                };
+                let Some(d) = b.get(1) else {
+                    return Ordering::Equal
+                };
+                Ord::cmp(c, d)
+            }
+        })
+        .rev()
+        .for_each(|numbers| {
+            numbers.get(0).map(|number| print!("{} ", number));
+            numbers.get(1).map(|number| println!("{}", number));
+        });
+}
+
 fn main() {
-    c_rank_sort_step1()
+    c_rank_sort_step3()
 }
