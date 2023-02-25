@@ -469,18 +469,18 @@ pub fn c_rank_sort_step3() {
             Some(numbers)
         })
         .collect::<Vec<_>>();
-    lines.sort_by(|current_line, next_line| {
-        let (Some(current_number), Some(next_number)) = (current_line.get(0), next_line.get(0)) else {
-            return Ordering::Equal
-        };
-        if current_number != next_number {
-            Ord::cmp(current_number, next_number)
-        } else {
-            let (Some(current_number), Some(next_number)) = (current_line.get(1), next_line.get(1)) else {
+    lines.sort_by(|first_line, second_line| {
+            let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0)) else {
                 return Ordering::Equal
             };
-            Ord::cmp(current_number, next_number)
-        }
+            if first_number != second_number {
+                Ord::cmp(first_number, second_number)
+            } else {
+                let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
+                    return Ordering::Equal
+                };
+                Ord::cmp(first_number, second_number)
+            }
     });
     lines.iter().rev().for_each(|numbers| {
         let (Some(first), Some(second)) = (numbers.get(0), numbers.get(1)) else {
@@ -499,38 +499,26 @@ pub fn c_rank_sort_step3_itertools() {
     };
     (0..number)
         .filter_map(|_| {
-            let Some(numbers) = stdin()
-                .lock()
-                .lines()
-                .next()
-                .and_then(|next| next.ok())
-                .map(|line| {
-                    line.trim()
-                        .split_whitespace()
-                        .take(2)
-                        .filter_map(|string| string.parse::<usize>().ok())
-                        .collect::<Vec<_>>()
-                }) else {
-                    return None
-                };
-            if numbers.len() != 2 {
-                return None;
-            };
-            Some(numbers)
+            stdin().lock().lines().next().and_then(|next| next.ok()).map(|line| {line.trim().split_whitespace().take(2).filter_map(|string| string.parse::<usize>().ok()).collect::<Vec<_>>()}).and_then(|numbers| {
+               if numbers.len() != 2 {
+                   return None
+               } 
+               Some(numbers)
+            })
         })
         .collect::<Vec<_>>()
         .iter()
-        .sorted_by(|current_line, next_line| {
-            let (Some(current_number), Some(next_number)) = (current_line.get(0), next_line.get(0)) else {
+        .sorted_by(|first_line, second_line| {
+            let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0)) else {
                 return Ordering::Equal
             };
-            if current_number != next_number {
-                Ord::cmp(current_number, next_number)
+            if first_number != second_number {
+                Ord::cmp(first_number, second_number)
             } else {
-                let (Some(current_number), Some(next_number)) = (current_line.get(1), next_line.get(1)) else {
+                let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
                     return Ordering::Equal
                 };
-                Ord::cmp(current_number, next_number)
+                Ord::cmp(first_number, second_number)
             }
         })
         .rev()
@@ -543,5 +531,5 @@ pub fn c_rank_sort_step3_itertools() {
 }
 
 fn main() {
-    c_rank_sort_step3()
+    c_rank_sort_step3_itertools()
 }
