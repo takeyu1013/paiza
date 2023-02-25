@@ -442,6 +442,55 @@ pub fn c_rank_sort_step2() {
 }
 
 pub fn c_rank_sort_step3() {
+    use std::cmp::Ordering;
+    use std::io::{stdin, BufRead};
+    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
+        return
+    };
+    let mut lines = (0..number)
+        .filter_map(|_| {
+            let Some(numbers) = stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .map(|line| {
+                    line.trim()
+                        .split_whitespace()
+                        .take(2)
+                        .filter_map(|string| string.parse::<usize>().ok())
+                        .collect::<Vec<_>>()
+                }) else {
+                    return None
+                };
+            if numbers.len() != 2 {
+                return None;
+            };
+            Some(numbers)
+        })
+        .collect::<Vec<_>>();
+    lines.sort_by(|current_line, next_line| {
+        let (Some(current_number), Some(next_number)) = (current_line.get(0), next_line.get(0)) else {
+            return Ordering::Equal
+        };
+        if current_number != next_number {
+            Ord::cmp(current_number, next_number)
+        } else {
+            let (Some(current_number), Some(next_number)) = (current_line.get(1), next_line.get(1)) else {
+                return Ordering::Equal
+            };
+            Ord::cmp(current_number, next_number)
+        }
+    });
+    lines.iter().rev().for_each(|numbers| {
+        let (Some(first), Some(second)) = (numbers.get(0), numbers.get(1)) else {
+            return
+        };
+        println!("{} {}", first, second);
+    })
+}
+
+pub fn c_rank_sort_step3_itertools() {
     use itertools::Itertools;
     use std::cmp::Ordering;
     use std::io::{stdin, BufRead};
@@ -471,29 +520,25 @@ pub fn c_rank_sort_step3() {
         })
         .collect::<Vec<_>>()
         .iter()
-        .sorted_by(|a, b| {
-            let Some(c) = a.get(0) else {
+        .sorted_by(|current_line, next_line| {
+            let (Some(current_number), Some(next_number)) = (current_line.get(0), next_line.get(0)) else {
                 return Ordering::Equal
             };
-            let Some(d) = b.get(0) else {
-                return Ordering::Equal
-            };
-            if c != d {
-                Ord::cmp(c, d)
+            if current_number != next_number {
+                Ord::cmp(current_number, next_number)
             } else {
-                let Some(c) = a.get(1) else {
+                let (Some(current_number), Some(next_number)) = (current_line.get(1), next_line.get(1)) else {
                     return Ordering::Equal
                 };
-                let Some(d) = b.get(1) else {
-                    return Ordering::Equal
-                };
-                Ord::cmp(c, d)
+                Ord::cmp(current_number, next_number)
             }
         })
         .rev()
         .for_each(|numbers| {
-            numbers.get(0).map(|number| print!("{} ", number));
-            numbers.get(1).map(|number| println!("{}", number));
+            let (Some(first), Some(second)) = (numbers.get(0), numbers.get(1)) else {
+                return
+            };
+            println!("{} {}", first, second);
         });
 }
 
