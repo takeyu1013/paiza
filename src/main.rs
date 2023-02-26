@@ -614,17 +614,21 @@ pub fn c_rank_dictionary_step1() {
         return
     };
     let lines = stdin().lock().lines().take(number).filter_map(|result| result.ok()).collect::<Vec<_>>();
-    let tuples = lines.iter().filter_map(|line| {
-        let words = line.split_whitespace().take(2).collect::<Vec<_>>();
-        let (Some(&name), Some(point)) = (words.get(0), words.get(1).and_then(|string| string.parse::<usize>().ok())) else {
-            return None
-        };
-        Some((name, point))
-    }).collect::<Vec<_>>();
     let Some(key) = stdin().lock().lines().next().and_then(|result| result.ok()) else {
         return
     };
-    tuples.iter().find(|tuple| tuple.0 == key).map(|tuple| println!("{}", tuple.1));
+    let Some(&(_, second)) = lines.iter().filter_map(|line| {
+        let [first, second] = line.split_whitespace().collect::<Vec<_>>()[..] else {
+            return None
+        };
+        let Some(second) = second.parse::<usize>().ok() else {
+            return None
+        };
+        Some((first, second))
+    }).collect::<Vec<_>>().iter().find(|&&(first, _)| first == key) else {
+        return
+    };
+    println!("{}", second);
 }
 
 fn main() {
