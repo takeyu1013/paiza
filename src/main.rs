@@ -643,13 +643,34 @@ pub fn c_rank_dictionary_step1() {
         let Some(second) = second.parse::<usize>().ok() else {
             return None
         };
-        Some((first, second))
-    }).collect::<Vec<_>>().iter().find(|&&(first, _)| first == key) else {
+        Some((String::from(first), second))
+    }).collect::<Vec<_>>().iter().find(|(first, _)| first == &key) else {
         return
     };
     println!("{}", second);
 }
 
+pub fn c_rank_dictionary_step2() {
+    use std::io::BufRead;
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+        return
+    };
+    (0..number)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let Some(word) = string.split_whitespace().next() else {
+                        return None
+                    };
+                    Some(String::from(word))
+                })
+            })
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .for_each(|string| println!("{}", string));
+}
+
 fn main() {
-    c_rank_dictionary_step1();
+    c_rank_dictionary_step2();
 }
