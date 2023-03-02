@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 pub fn c_rank_std_in_out_step1() {
     use std::io::{stdin, BufRead};
     let Some(line) = stdin()
@@ -653,9 +655,9 @@ pub fn c_rank_dictionary_step1() {
 pub fn c_rank_dictionary_step2() {
     use std::io::BufRead;
     let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
-        return
+        return;
     };
-    (0..number)
+    let names = (0..number)
         .filter_map(|_| {
             std::io::stdin().lock().lines().next().and_then(|result| {
                 result.ok().and_then(|string| {
@@ -666,11 +668,98 @@ pub fn c_rank_dictionary_step2() {
                 })
             })
         })
-        .collect::<Vec<_>>()
+        .collect::<Vec<_>>();
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+        return;
+    };
+    let damages = (0..number)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                        return None
+                    };
+                    let Some(second) = second.parse::<usize>().ok() else {
+                        return None
+                    };
+                    Some((String::from(first), second))
+                })
+            })
+        })
+        .collect::<Vec<_>>();
+    let Some(key) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| {
+        let Some(word) = line.split_whitespace().next() else {
+            return None
+        };
+        Some(String::from(word))
+    })) else {
+        return;
+    };
+    if !names.contains(&key) {
+        return;
+    };
+    println!(
+        "{}",
+        damages
+            .iter()
+            .filter(|(name, _)| name == &key)
+            .map(|(_, damage)| damage)
+            .sum::<usize>()
+    );
+}
+
+pub fn c_rank_dictionary_step3() {
+    use std::io::BufRead;
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+        return;
+    };
+    let names = (0..number)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let Some(word) = string.split_whitespace().next() else {
+                    return None;
+                };
+                    Some(String::from(word))
+                })
+            })
+        })
+        .collect::<HashSet<_>>();
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+        return;
+    };
+    let damages = (0..number)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                        return None;
+                    };
+                    let Some(second) = second.parse::<usize>().ok() else {
+                        return None;
+                    };
+                    Some((String::from(first), second))
+                })
+            })
+        })
+        .collect::<Vec<_>>();
+    let mut total = names
         .iter()
-        .for_each(|string| println!("{}", string));
+        .map(|key| {
+            (
+                key,
+                damages
+                    .iter()
+                    .filter(|(name, _)| name == key)
+                    .map(|(_, damage)| damage)
+                    .sum::<usize>(),
+            )
+        })
+        .collect::<Vec<_>>();
+    total.sort_by_key(|&(name, _)| String::from(name));
+    total.iter().for_each(|(_, second)| println!("{}", second));
 }
 
 fn main() {
-    c_rank_dictionary_step2();
+    c_rank_dictionary_step3();
 }
