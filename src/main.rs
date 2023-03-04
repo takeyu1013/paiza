@@ -760,6 +760,50 @@ pub fn c_rank_dictionary_step3() {
     total.iter().for_each(|(_, second)| println!("{}", second));
 }
 
+pub fn c_rank_dictionary_boss() {
+    use std::io::BufRead;
+    let Some(numbers) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
+        let [first, second, third] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+            return None;
+        };
+        let (Some(first), Some(second), Some(third)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok(), third.parse::<usize>().ok()) else {
+            return None;
+        };
+        Some((first, second, third))
+    })) else {
+        return;
+    };
+    let mut first_requests = (0..numbers.0).filter_map(|_| {
+        std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
+            let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                return None;
+            };
+            let (Some(first), Some(second)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok()) else {
+                return None;
+            };
+            Some((first, second))
+        }))
+    }).collect::<Vec<_>>();
+    let second_requests = (0..numbers.1).filter_map(|_| {
+        std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
+            let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                return None;
+            };
+            let (Some(first), Some(second)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok()) else {
+                return None;
+            };
+            Some((first, second))
+        }))
+    }).collect::<Vec<_>>();
+    first_requests.sort_by_key(|&(first, _)| first);
+    first_requests.iter().filter_map(|(first, second)| {
+        let Some(second) = second_requests.iter().find(|(first, _)| second == first).map(|(_, second)| second) else {
+            return None;
+        };
+        Some((first, second))
+    }).for_each(|(first, second)| println!("{} {}", first, second));
+}
+
 fn main() {
-    c_rank_dictionary_step3();
+    c_rank_dictionary_boss();
 }
