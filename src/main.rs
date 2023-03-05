@@ -804,6 +804,38 @@ pub fn c_rank_dictionary_boss() {
     }).for_each(|(first, second)| println!("{} {}", first, second));
 }
 
+pub fn c_rank_simulation_step1() {
+    let Some(number) = (10000usize..).find(|number| number % 13 == 0) else {
+        return;
+    };
+    println!("{}", number);
+}
+
+pub fn c_rank_simulation_step2() {
+    use std::io::BufRead;
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok())) else {
+        return;
+    };
+    let Some((multiplier, reciprocal)) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
+        let [first, second] = string.split_whitespace().filter_map(|string| string.parse::<usize>().ok()).collect::<Vec<_>>()[..] else {
+            return None;
+        };
+        Some((first, second))
+    })) else {
+        return;
+    };
+    let numbers = (0..)
+        .scan((1usize, 1usize), |(first, second), _number| {
+            *first += *second * multiplier;
+            *second += *first % reciprocal;
+            Some((*first, *second))
+        })
+        .inspect(|number| println!("{:?}", number))
+        .take_while(|&(first, _)| first < number)
+        .collect::<Vec<_>>();
+    println!("{}", numbers.len() + 1);
+}
+
 fn main() {
-    c_rank_dictionary_boss();
+    c_rank_simulation_step2();
 }
