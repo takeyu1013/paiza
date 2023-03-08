@@ -836,6 +836,22 @@ pub fn c_rank_simulation_step2() {
     println!("{}", numbers.len() + 1);
 }
 
+pub fn c_rank_simulation_boss() {
+    use std::io::BufRead;
+    let Some(health) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok())) else {
+        return;
+    };
+    (0..health)
+        .scan((1usize, 1usize), |(first, second), _| {
+            *first = *second;
+            *second += *first;
+            Some((*first, *second))
+        })
+        .for_each(|number| println!("{:?}", number));
+    // [1, 1, 2, 3]
+    // [1, 1, 1 * 2 + 1, 2 * 2 + 1]
+}
+
 fn main() {
-    c_rank_simulation_step2();
+    c_rank_simulation_boss();
 }
