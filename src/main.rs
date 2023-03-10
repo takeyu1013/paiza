@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 pub fn c_rank_std_in_out_step1() {
     use std::io::{stdin, BufRead};
     let Some(line) = stdin()
@@ -709,6 +707,7 @@ pub fn c_rank_dictionary_step2() {
 }
 
 pub fn c_rank_dictionary_step3() {
+    use std::collections::HashSet;
     use std::io::BufRead;
     let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
         return;
@@ -841,15 +840,25 @@ pub fn c_rank_simulation_boss() {
     let Some(health) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok())) else {
         return;
     };
-    (0..health)
-        .scan((1usize, 1usize), |(first, second), _| {
-            *first = *second;
-            *second += *first;
-            Some((*first, *second))
-        })
-        .for_each(|number| println!("{:?}", number));
-    // [1, 1, 2, 3]
-    // [1, 1, 1 * 2 + 1, 2 * 2 + 1]
+    let Some(number) = vec![1usize].into_iter().chain(
+        (0..)
+            .scan(
+                ((1usize, 1usize), (1usize, 1usize)),
+                |(first, second), _| {
+                    let next = (first.1 + second.1, first.0 + second.0 * 2);
+                    *first = *second;
+                    *second = next;
+                    Some((*first, *second))
+                },
+            )
+            .scan(0, |state, ((_, second), _)| {
+                *state += second;
+                Some(*state)
+            }),
+    ).position(|number| number > health) else {
+        return;
+    };
+    println!("{}", number + 1);
 }
 
 fn main() {
