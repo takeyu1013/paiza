@@ -1,12 +1,8 @@
 pub fn c_rank_std_in_out_step1() {
     use std::io::{stdin, BufRead};
-    let Some(line) = stdin()
-        .lock()
-        .lines()
-        .next()
-        .and_then(|next| next.ok()) else {
-            return
-        };
+    let Some(line) = stdin().lock().lines().next().and_then(|next| next.ok()) else {
+        return;
+    };
     println!("{}", line)
 }
 
@@ -14,8 +10,14 @@ const PAIZA: &str = "paiza";
 
 pub fn c_rank_std_in_out_step2() {
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number).for_each(|_| print!("{} ", PAIZA));
     println!();
@@ -23,8 +25,14 @@ pub fn c_rank_std_in_out_step2() {
 
 pub fn c_rank_std_in_out_step3() {
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| {
@@ -42,8 +50,14 @@ pub fn c_rank_std_in_out_step3() {
 
 pub fn c_rank_std_in_out_step4() {
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     let Some(&max) = (0..number)
         .filter_map(|_| {
@@ -56,27 +70,34 @@ pub fn c_rank_std_in_out_step4() {
         })
         .collect::<Vec<_>>()
         .iter()
-        .max() else {
-            return
-        };
+        .max()
+    else {
+        return;
+    };
     println!("{}", max);
 }
 
 pub fn c_rank_std_in_out_step5() {
     use std::io::{stdin, BufRead};
     let Some(line) = stdin().lock().lines().next().and_then(|next| next.ok()) else {
-        return
+        return;
     };
     println!("{}", line.split_whitespace().count());
 }
 
 pub fn c_rank_std_in_out_step6() {
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     let Some(line) = stdin().lock().lines().next().and_then(|next| next.ok()) else {
-        return
+        return;
     };
     line.split_whitespace()
         .take(number)
@@ -85,8 +106,14 @@ pub fn c_rank_std_in_out_step6() {
 
 pub fn c_rank_std_in_out_boss() {
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| stdin().lock().lines().next().and_then(|next| next.ok()))
@@ -409,8 +436,14 @@ pub fn d002() {
 pub fn c_rank_sort_step1() {
     use itertools::Itertools;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| {
@@ -428,8 +461,14 @@ pub fn c_rank_sort_step1() {
 pub fn c_rank_sort_step2() {
     use itertools::Itertools;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| {
@@ -448,8 +487,14 @@ pub fn c_rank_sort_step2() {
 pub fn c_rank_sort_step3() {
     use std::cmp::Ordering;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     let mut lines = (0..number)
         .filter_map(|_| {
@@ -464,9 +509,10 @@ pub fn c_rank_sort_step3() {
                         .take(2)
                         .filter_map(|string| string.parse::<usize>().ok())
                         .collect::<Vec<_>>()
-                }) else {
-                    return None
-                };
+                })
+            else {
+                return None;
+            };
             if numbers.len() != 2 {
                 return None;
             };
@@ -474,21 +520,23 @@ pub fn c_rank_sort_step3() {
         })
         .collect::<Vec<_>>();
     lines.sort_by(|first_line, second_line| {
-            let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0)) else {
-                return Ordering::Equal
+        let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0))
+        else {
+            return Ordering::Equal;
+        };
+        if first_number != second_number {
+            Ord::cmp(first_number, second_number)
+        } else {
+            let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1))
+            else {
+                return Ordering::Equal;
             };
-            if first_number != second_number {
-                Ord::cmp(first_number, second_number)
-            } else {
-                let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
-                    return Ordering::Equal
-                };
-                Ord::cmp(first_number, second_number)
-            }
+            Ord::cmp(first_number, second_number)
+        }
     });
     lines.iter().rev().for_each(|numbers| {
         let (Some(first), Some(second)) = (numbers.get(0), numbers.get(1)) else {
-            return
+            return;
         };
         println!("{} {}", first, second);
     })
@@ -498,29 +546,50 @@ pub fn c_rank_sort_step3_itertools() {
     use itertools::Itertools;
     use std::cmp::Ordering;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| {
-            stdin().lock().lines().next().and_then(|next| next.ok()).map(|line| {line.trim().split_whitespace().take(2).filter_map(|string| string.parse::<usize>().ok()).collect::<Vec<_>>()}).and_then(|numbers| {
-                if numbers.len() != 2 {
-                   return None
-                }
-               Some(numbers)
-            })
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .map(|line| {
+                    line.trim()
+                        .split_whitespace()
+                        .take(2)
+                        .filter_map(|string| string.parse::<usize>().ok())
+                        .collect::<Vec<_>>()
+                })
+                .and_then(|numbers| {
+                    if numbers.len() != 2 {
+                        return None;
+                    }
+                    Some(numbers)
+                })
         })
         .collect::<Vec<_>>()
         .iter()
         .sorted_by(|first_line, second_line| {
-            let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0)) else {
-                return Ordering::Equal
+            let (Some(first_number), Some(second_number)) = (first_line.get(0), second_line.get(0))
+            else {
+                return Ordering::Equal;
             };
             if first_number != second_number {
                 Ord::cmp(first_number, second_number)
             } else {
-                let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
-                    return Ordering::Equal
+                let (Some(first_number), Some(second_number)) =
+                    (first_line.get(1), second_line.get(1))
+                else {
+                    return Ordering::Equal;
                 };
                 Ord::cmp(first_number, second_number)
             }
@@ -528,7 +597,7 @@ pub fn c_rank_sort_step3_itertools() {
         .rev()
         .for_each(|numbers| {
             let (Some(first), Some(second)) = (numbers.get(0), numbers.get(1)) else {
-                return
+                return;
             };
             println!("{} {}", first, second);
         });
@@ -537,8 +606,14 @@ pub fn c_rank_sort_step3_itertools() {
 pub fn c_rank_sort_boss() {
     use std::cmp::Ordering;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     let mut lines = (0..number)
         .filter_map(|_| {
@@ -562,21 +637,24 @@ pub fn c_rank_sort_boss() {
         })
         .collect::<Vec<_>>();
     lines.sort_by(|first_line, second_line| {
-        let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
-            return Ordering::Equal
+        let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1))
+        else {
+            return Ordering::Equal;
         };
         if first_number != second_number {
             Ord::cmp(first_number, second_number)
         } else {
-            let (Some(first_number), Some(second_number)) = (first_line.first(), second_line.first()) else {
-                return Ordering::Equal
+            let (Some(first_number), Some(second_number)) =
+                (first_line.first(), second_line.first())
+            else {
+                return Ordering::Equal;
             };
             Ord::cmp(first_number, second_number)
         }
     });
     lines.iter().rev().for_each(|numbers| {
         let (Some(first), Some(second)) = (numbers.first(), numbers.get(1)) else {
-            return
+            return;
         };
         println!("{} {}", first, second);
     });
@@ -586,36 +664,57 @@ pub fn c_rank_sort_boss_itertools() {
     use itertools::Itertools;
     use std::cmp::Ordering;
     use std::io::{stdin, BufRead};
-    let Some(number) = stdin().lock().lines().next().and_then(|next| next.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     (0..number)
         .filter_map(|_| {
-            stdin().lock().lines().next().and_then(|next| next.ok()).map(|line| {line.split_whitespace().take(2).filter_map(|string| string.parse::<usize>().ok()).collect::<Vec<_>>()}).and_then(|numbers| {
-                if numbers.len() != 2 {
-                    return None
-                }
-               Some(numbers)
-            })
+            stdin()
+                .lock()
+                .lines()
+                .next()
+                .and_then(|next| next.ok())
+                .map(|line| {
+                    line.split_whitespace()
+                        .take(2)
+                        .filter_map(|string| string.parse::<usize>().ok())
+                        .collect::<Vec<_>>()
+                })
+                .and_then(|numbers| {
+                    if numbers.len() != 2 {
+                        return None;
+                    }
+                    Some(numbers)
+                })
         })
         .collect::<Vec<_>>()
         .iter()
         .sorted_by(|first_line, second_line| {
-            let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1)) else {
-                return Ordering::Equal
+            let (Some(first_number), Some(second_number)) = (first_line.get(1), second_line.get(1))
+            else {
+                return Ordering::Equal;
             };
             if first_number != second_number {
                 Ord::cmp(first_number, second_number)
             } else {
-                let (Some(first_number), Some(second_number)) = (first_line.first(), second_line.first()) else {
-                    return Ordering::Equal
+                let (Some(first_number), Some(second_number)) =
+                    (first_line.first(), second_line.first())
+                else {
+                    return Ordering::Equal;
                 };
                 Ord::cmp(first_number, second_number)
             }
-        }).rev()
+        })
+        .rev()
         .for_each(|numbers| {
             let (Some(first), Some(second)) = (numbers.first(), numbers.get(1)) else {
-                return
+                return;
             };
             println!("{} {}", first, second);
         });
@@ -624,8 +723,14 @@ pub fn c_rank_sort_boss_itertools() {
 pub fn c_rank_dictionary_step1() {
     use std::io::{stdin, BufRead};
 
-    let Some(number) = stdin().lock().lines().next().and_then(|result| result.ok()).and_then(|line| line.trim().parse::<usize>().ok()) else {
-        return
+    let Some(number) = stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|result| result.ok())
+        .and_then(|line| line.trim().parse::<usize>().ok())
+    else {
+        return;
     };
     let lines = stdin()
         .lock()
@@ -634,25 +739,35 @@ pub fn c_rank_dictionary_step1() {
         .filter_map(|result| result.ok())
         .collect::<Vec<_>>();
     let Some(key) = stdin().lock().lines().next().and_then(|result| result.ok()) else {
-        return
+        return;
     };
-    let Some(&(_, second)) = lines.iter().filter_map(|line| {
-        let [first, second] = line.split_whitespace().collect::<Vec<_>>()[..] else {
-            return None
-        };
-        let Some(second) = second.parse::<usize>().ok() else {
-            return None
-        };
-        Some((String::from(first), second))
-    }).collect::<Vec<_>>().iter().find(|(first, _)| first == &key) else {
-        return
+    let Some(&(_, second)) = lines
+        .iter()
+        .filter_map(|line| {
+            let [first, second] = line.split_whitespace().collect::<Vec<_>>()[..] else {
+                return None;
+            };
+            let Some(second) = second.parse::<usize>().ok() else {
+                return None;
+            };
+            Some((String::from(first), second))
+        })
+        .collect::<Vec<_>>()
+        .iter()
+        .find(|(first, _)| first == &key)
+    else {
+        return;
     };
     println!("{}", second);
 }
 
 pub fn c_rank_dictionary_step2() {
     use std::io::BufRead;
-    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result
+            .ok()
+            .and_then(|line| line.trim().parse::<usize>().ok())
+    }) else {
         return;
     };
     let names = (0..number)
@@ -660,14 +775,18 @@ pub fn c_rank_dictionary_step2() {
             std::io::stdin().lock().lines().next().and_then(|result| {
                 result.ok().and_then(|string| {
                     let Some(word) = string.split_whitespace().next() else {
-                        return None
+                        return None;
                     };
                     Some(String::from(word))
                 })
             })
         })
         .collect::<Vec<_>>();
-    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result
+            .ok()
+            .and_then(|line| line.trim().parse::<usize>().ok())
+    }) else {
         return;
     };
     let damages = (0..number)
@@ -675,22 +794,24 @@ pub fn c_rank_dictionary_step2() {
             std::io::stdin().lock().lines().next().and_then(|result| {
                 result.ok().and_then(|string| {
                     let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
-                        return None
+                        return None;
                     };
                     let Some(second) = second.parse::<usize>().ok() else {
-                        return None
+                        return None;
                     };
                     Some((String::from(first), second))
                 })
             })
         })
         .collect::<Vec<_>>();
-    let Some(key) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| {
-        let Some(word) = line.split_whitespace().next() else {
-            return None
-        };
-        Some(String::from(word))
-    })) else {
+    let Some(key) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result.ok().and_then(|line| {
+            let Some(word) = line.split_whitespace().next() else {
+                return None;
+            };
+            Some(String::from(word))
+        })
+    }) else {
         return;
     };
     if !names.contains(&key) {
@@ -709,7 +830,11 @@ pub fn c_rank_dictionary_step2() {
 pub fn c_rank_dictionary_step3() {
     use std::collections::HashSet;
     use std::io::BufRead;
-    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result
+            .ok()
+            .and_then(|line| line.trim().parse::<usize>().ok())
+    }) else {
         return;
     };
     let names = (0..number)
@@ -717,14 +842,18 @@ pub fn c_rank_dictionary_step3() {
             std::io::stdin().lock().lines().next().and_then(|result| {
                 result.ok().and_then(|string| {
                     let Some(word) = string.split_whitespace().next() else {
-                    return None;
-                };
+                        return None;
+                    };
                     Some(String::from(word))
                 })
             })
         })
         .collect::<HashSet<_>>();
-    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|line| line.trim().parse::<usize>().ok())) else {
+    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result
+            .ok()
+            .and_then(|line| line.trim().parse::<usize>().ok())
+    }) else {
         return;
     };
     let damages = (0..number)
@@ -761,46 +890,71 @@ pub fn c_rank_dictionary_step3() {
 
 pub fn c_rank_dictionary_boss() {
     use std::io::BufRead;
-    let Some(numbers) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
-        let [first, second, third] = string.split_whitespace().collect::<Vec<_>>()[..] else {
-            return None;
-        };
-        let (Some(first), Some(second), Some(third)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok(), third.parse::<usize>().ok()) else {
-            return None;
-        };
-        Some((first, second, third))
-    })) else {
+    let Some(numbers) = std::io::stdin().lock().lines().next().and_then(|result| {
+        result.ok().and_then(|string| {
+            let [first, second, third] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                return None;
+            };
+            let (Some(first), Some(second), Some(third)) = (
+                first.parse::<usize>().ok(),
+                second.parse::<usize>().ok(),
+                third.parse::<usize>().ok(),
+            ) else {
+                return None;
+            };
+            Some((first, second, third))
+        })
+    }) else {
         return;
     };
-    let mut first_requests = (0..numbers.0).filter_map(|_| {
-        std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
-            let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
-                return None;
-            };
-            let (Some(first), Some(second)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok()) else {
-                return None;
-            };
-            Some((first, second))
-        }))
-    }).collect::<Vec<_>>();
-    let second_requests = (0..numbers.1).filter_map(|_| {
-        std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
-            let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
-                return None;
-            };
-            let (Some(first), Some(second)) = (first.parse::<usize>().ok(), second.parse::<usize>().ok()) else {
-                return None;
-            };
-            Some((first, second))
-        }))
-    }).collect::<Vec<_>>();
+    let mut first_requests = (0..numbers.0)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                        return None;
+                    };
+                    let (Some(first), Some(second)) =
+                        (first.parse::<usize>().ok(), second.parse::<usize>().ok())
+                    else {
+                        return None;
+                    };
+                    Some((first, second))
+                })
+            })
+        })
+        .collect::<Vec<_>>();
+    let second_requests = (0..numbers.1)
+        .filter_map(|_| {
+            std::io::stdin().lock().lines().next().and_then(|result| {
+                result.ok().and_then(|string| {
+                    let [first, second] = string.split_whitespace().collect::<Vec<_>>()[..] else {
+                        return None;
+                    };
+                    let (Some(first), Some(second)) =
+                        (first.parse::<usize>().ok(), second.parse::<usize>().ok())
+                    else {
+                        return None;
+                    };
+                    Some((first, second))
+                })
+            })
+        })
+        .collect::<Vec<_>>();
     first_requests.sort_by_key(|&(first, _)| first);
-    first_requests.iter().filter_map(|(first, second)| {
-        let Some(second) = second_requests.iter().find(|(first, _)| second == first).map(|(_, second)| second) else {
-            return None;
-        };
-        Some((first, second))
-    }).for_each(|(first, second)| println!("{} {}", first, second));
+    first_requests
+        .iter()
+        .filter_map(|(first, second)| {
+            let Some(second) = second_requests
+                .iter()
+                .find(|(first, _)| second == first)
+                .map(|(_, second)| second)
+            else {
+                return None;
+            };
+            Some((first, second))
+        })
+        .for_each(|(first, second)| println!("{} {}", first, second));
 }
 
 pub fn c_rank_simulation_step1() {
@@ -812,15 +966,28 @@ pub fn c_rank_simulation_step1() {
 
 pub fn c_rank_simulation_step2() {
     use std::io::BufRead;
-    let Some(number) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok())) else {
+    let Some(number) = std::io::stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok()))
+    else {
         return;
     };
-    let Some((multiplier, reciprocal)) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| {
-        let [first, second] = string.split_whitespace().filter_map(|string| string.parse::<usize>().ok()).collect::<Vec<_>>()[..] else {
-            return None;
-        };
-        Some((first, second))
-    })) else {
+    let Some((multiplier, reciprocal)) =
+        std::io::stdin().lock().lines().next().and_then(|result| {
+            result.ok().and_then(|string| {
+                let [first, second] = string
+                    .split_whitespace()
+                    .filter_map(|string| string.parse::<usize>().ok())
+                    .collect::<Vec<_>>()[..]
+                else {
+                    return None;
+                };
+                Some((first, second))
+            })
+        })
+    else {
         return;
     };
     let numbers = (0..)
@@ -837,30 +1004,39 @@ pub fn c_rank_simulation_step2() {
 
 pub fn c_rank_simulation_boss() {
     use std::io::BufRead;
-    let Some(health) = std::io::stdin().lock().lines().next().and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok())) else {
+    let Some(health) = std::io::stdin()
+        .lock()
+        .lines()
+        .next()
+        .and_then(|result| result.ok().and_then(|string| string.parse::<usize>().ok()))
+    else {
         return;
     };
-    let Some(number) = vec![1usize].into_iter().chain(
-        (0..)
-            .scan(
-                ((1usize, 1usize), (1usize, 1usize)),
-                |(first, second), _| {
-                    let next = (first.1 + second.1, first.0 + second.0 * 2);
-                    *first = *second;
-                    *second = next;
-                    Some((*first, *second))
-                },
-            )
-            .scan(0, |state, ((_, second), _)| {
-                *state += second;
-                Some(*state)
-            }),
-    ).position(|number| number > health) else {
+    let Some(number) = vec![1usize]
+        .into_iter()
+        .chain(
+            (0..)
+                .scan(
+                    ((1usize, 1usize), (1usize, 1usize)),
+                    |(first, second), _| {
+                        let next = (first.1 + second.1, first.0 + second.0 * 2);
+                        *first = *second;
+                        *second = next;
+                        Some((*first, *second))
+                    },
+                )
+                .scan(0, |state, ((_, second), _)| {
+                    *state += second;
+                    Some(*state)
+                }),
+        )
+        .position(|number| number > health)
+    else {
         return;
     };
     println!("{}", number + 1);
 }
 
 fn main() {
-    c_rank_simulation_boss();
+    c_rank_std_in_out_step1();
 }
