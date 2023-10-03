@@ -6,5 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4"
-itertools = "0.10.5"
+chrono = "0.4.31"
+itertools = "0.11.0"
