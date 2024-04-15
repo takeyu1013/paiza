@@ -237,72 +237,43 @@ pub fn c_rank_string_step6() {
     });
 }
 
-pub fn c_rank_string_step6_chrono() {
-    use chrono::prelude::Local;
-    use chrono::Duration;
-    use chrono::Timelike;
-    use std::io::BufRead;
-    std::io::stdin().lock().lines().next().map(|next| {
-        next.ok().map(|line| {
-            let numbers = line
-                .split(":")
-                .take(2)
-                .flat_map(|string| string.parse::<u32>().ok())
-                .collect::<Vec<_>>();
-            numbers.get(0).map(|hour| {
-                numbers.get(1).map(|minutes| {
-                    let time = Local::today().and_hms(hour.clone(), minutes.clone(), 0)
-                        + Duration::minutes(30);
-                    println!("{:02}:{:02}", time.hour(), time.minute());
-                });
-            });
-        });
-    });
-}
-
 pub fn c_rank_string_boss() {
-    use chrono::prelude::Local;
-    use chrono::Duration;
-    use chrono::Timelike;
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).ok();
-    buffer.trim().parse::<usize>().ok().map(|number| {
-        let lines = (0..number)
-            .map(|_| {
-                let mut buffer = String::new();
-                std::io::stdin().read_line(&mut buffer).ok();
-                buffer
-            })
+    let Some(number) = std::io::stdin()
+        .lines()
+        .next()
+        .and_then(|next| next.ok())
+        .and_then(|line| line.trim().parse::<u32>().ok())
+    else {
+        return;
+    };
+    let lines = (0..number)
+        .filter_map(|_| std::io::stdin().lines().next().and_then(|next| next.ok()))
+        .collect::<Vec<_>>();
+    lines.iter().for_each(|line| {
+        let words = line.split_whitespace().collect::<Vec<_>>();
+        let (Some(&first), Some(&second), Some(&third)) =
+            (words.get(0), words.get(1), words.get(2))
+        else {
+            return;
+        };
+        let time = first
+            .split(":")
+            .filter_map(|string| string.parse::<u32>().ok())
             .collect::<Vec<_>>();
-        lines.iter().for_each(|line| {
-            let strings = line.split_whitespace().take(3).collect::<Vec<_>>();
-            strings.get(0).map(|string| {
-                let numbers = string
-                    .split(":")
-                    .take(2)
-                    .flat_map(|string| string.parse::<u32>().ok())
-                    .collect::<Vec<_>>();
-                numbers.get(0).map(|hour| {
-                    numbers.get(1).map(|minutes| {
-                        strings.get(1).map(|string| {
-                            string.parse::<i64>().ok().map(|hour_delta| {
-                                strings.get(2).map(|string| {
-                                    string.parse::<i64>().ok().map(|minutes_delta| {
-                                        let time = Local::today().and_hms(
-                                            hour.clone(),
-                                            minutes.clone(),
-                                            0,
-                                        ) + Duration::hours(hour_delta)
-                                            + Duration::minutes(minutes_delta);
-                                        println!("{:02}:{:02}", time.hour(), time.minute());
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
+        let (Some(&hour), Some(&minute)) = (time.get(0), time.get(1)) else {
+            return;
+        };
+        let (Some(hour_delta), Some(minute_delta)) =
+            (second.parse::<u32>().ok(), third.parse::<u32>().ok())
+        else {
+            return;
+        };
+        let new_minute = minute + minute_delta;
+        let target_minute = new_minute % 60;
+        let carry = new_minute / 60;
+        let new_hour = hour + hour_delta + carry;
+        let target_hour = new_hour % 24;
+        println!("{:02}:{:02}", target_hour, target_minute);
     });
 }
 
@@ -1038,5 +1009,5 @@ pub fn c_rank_simulation_boss() {
 }
 
 fn main() {
-    c_rank_std_in_out_step1();
+    c_rank_string_boss();
 }
